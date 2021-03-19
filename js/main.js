@@ -9,8 +9,8 @@ const app = new Vue({
     navBarActive: false,
     languageBrowserActive: false,
     languages: LANGUAGES,
-    currentLanguageCode: DEFAULT_LANGUAGE_CODE,
-    darkModeActive: DEFAULT_DARK_MODE,
+    currentLanguageCode: null,
+    darkModeActive: null,
   },
   computed: {
     currentLanguage() {
