@@ -1,0 +1,12 @@
+[v-cloak] {
+  display: none;
+}
+
+.flag {
+  height: 1rem;
+  vertical-align: -0.125em;
+}
+
+.bold-top-border {
+  border-top-width: 5px !important;
+}

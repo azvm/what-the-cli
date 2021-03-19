@@ -1,0 +1,302 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>What the CLI?</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="app" :class="{ 'bg-dark': darkModeActive }" v-cloak>
+      <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+          <div class="container">
+            <a class="navbar-brand" href="index.html">
+              <span class="bi-layout-wtf"></span>
+              <span>{{ currentLanguage.title }}</span>
+            </a>
+
+            <button @click="navBarActive = !navBarActive" class="navbar-toggler">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div :class="['navbar-collapse', 'collapse', { show: navBarActive }]">
+              <ul class="navbar-nav w-100 justify-content-center">
+                <span class="navbar-text user-select-none">{{ currentLanguage.about }}</span>
+
+                <li class="nav-item">
+                  <a class="nav-link fw-bold" href="https://www.ecma-international.org/publications-and-standards/standards/ecma-335">ECMA-335</a>
+                </li>
+              </ul>
+
+              <div class="dropdown" @mouseenter="languageBrowserActive = true" @mouseleave="languageBrowserActive = false" @click="languageBrowserActive = !languageBrowserActive" @blur="languageBrowserActive = false">
+                <button :class="['btn', 'btn-text', 'text-white', 'dropdown-toggle', { show: languageBrowserActive }]" :title="currentLanguage.languageBrowserHelp">
+                  <span class="bi-globe"></span>
+                  <span>{{ currentLanguage.languageBrowserTitle }}</span>
+                </button>
+
+                <ul :class="['dropdown-menu', { show: languageBrowserActive }, { 'dropdown-menu-dark': darkModeActive }]">
+                  <li v-for="language in languages">
+                    <button @click="setLanguage(language.meta.code)" :class="['dropdown-item', { active: language.meta.code === currentLanguageCode }]">
+                      <img :src="language.meta.iconURL" class="flag" :alt="language.meta.code">
+                      <span class="ms-2">{{ language.meta.name }}</span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              <button @click="setDarkMode(!darkModeActive)" class="btn btn-text text-white" :title="currentLanguage.darkModeTogglerHelp">
+                <span :class="darkModeActive ? 'bi-moon-fill' : 'bi-moon'"></span>
+              </button>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <div class="container">
+          <div class="table-responsive">
+            <table :class="['table', 'table-bordered', 'table-striped', 'text-center', 'my-4', { 'table-dark': darkModeActive }]">
+              <thead>
+                <tr class="align-middle">
+                  <th scope="col">{{ currentLanguage.specificationsTitle }}</th>
+                  <th colspan="6">{{ currentLanguage.implementationsTitle }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="align-middle border-bottom-0 bold-top-border">
+                  <td id="cli" rowspan="2">
+                    <p class="fs-4 lh-1 mb-2">{{ currentLanguage.cliTitle }}</p>
+                    <p class="lead lh-sm">{{ currentLanguage.cliExpansion }}</p>
+                    <p class="text-start mb-0">{{ currentLanguage.cliDescription }}</p>
+                  </td>
+                  <td>
+                    <p class="fs-4 lh-1 mb-0">
+                      <a href="https://dotnet.microsoft.com" class="text-decoration-none">{{ currentLanguage.dotNetTitle }}</a>
+                    </p>
+                  </td>
+                  <td>
+                    <p class="fs-4 lh-1 mb-0">
+                      <a href="https://docs.microsoft.com/en-us/dotnet/framework" class="text-decoration-none">{{ currentLanguage.dotNetFrameworkTitle }}</a>
+                    </p>
+                  </td>
+                  <td>
+                    <p class="fs-4 lh-1 mb-0">
+                      <a href="http://msdn.microsoft.com/en-us/library/f44bbwa1.aspx" class="text-decoration-none">{{ currentLanguage.dotNetCompactTitle }}</a>
+                    </p>
+                  </td>
+                  <td>
+                    <p class="fs-4 lh-1 mb-0">
+                      <a href="https://netmf.github.io" class="text-decoration-none">{{ currentLanguage.dotNetMicroTitle }}</a>
+                    </p>
+                  </td>
+                  <td>
+                    <p class="fs-4 lh-1 mb-0">
+                      <a href="https://mono-project.com" class="text-decoration-none">{{ currentLanguage.monoTitle }}</a>
+                    </p>
+                  </td>
+                  <td>
+                    <p class="fs-4 lh-1 mb-0">
+                      <a href="http://www.dotgnu.org/pnet.html" class="text-decoration-none">{{ currentLanguage.portableDotNetTitle }}</a>
+                    </p>
+                  </td>
+                </tr>
+
+                <tr class="border-top-0">
+                  <td>
+                    <p class="text-start mb-0">{{ currentLanguage.dotNetDescription }}</p>
+                  </td>
+                  <td>
+                    <p class="text-start mb-0">{{ currentLanguage.dotNetFrameworkDescription }}</p>
+                  </td>
+                  <td>
+                    <p class="text-start mb-0">{{ currentLanguage.dotNetCompactDescription }}</p>
+                  </td>
+                  <td>
+                    <p class="text-start mb-0">{{ currentLanguage.dotNetMicroDescription }}</p>
+                  </td>
+                  <td>
+                    <p class="text-start mb-0">{{ currentLanguage.monoDescription }}</p>
+                  </td>
+                  <td>
+                    <p class="text-start mb-0">{{ currentLanguage.portableDotNetDescription }}</p>
+                  </td>
+                </tr>
+
+                <tr class="align-middle border-bottom-0 bold-top-border">
+                  <td id="ves" rowspan="2">
+                    <p class="fs-4 lh-1 mb-2">{{ currentLanguage.vesTitle }}</p>
+                    <p class="lead lh-sm">{{ currentLanguage.vesExpansion }}</p>
+                    <p class="text-start mb-0">{{ currentLanguage.vesDescription }}</p>
+                  </td>
+                  <td>
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.coreClrTitle }}</p>
+                  </td>
+                  <td>
+                    <p class="fs-4 lh-1 mb-2">{{ currentLanguage.clrTitle }}</p>
+                    <p class="lead lh-sm mb-0">{{ currentLanguage.clrExpansion }}</p>
+                  </td>
+                  <td colspan="2">
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.specialClrTitle }}</p>
+                  </td>
+                  <td>
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.monoRuntimeTitle }}</p>
+                  </td>
+                  <td>
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.ilrunTitle }}</p>
+                  </td>
+                </tr>
+
+                <tr class="border-top-0">
+                  <td>
+                    <p class="text-start mb-0">{{ currentLanguage.coreClrDescription }}</p>
+                  </td>
+                  <td>
+                    <p class="text-start mb-0">{{ currentLanguage.clrDescription }}</p>
+                  </td>
+                  <td colspan="2">
+                    <p class="text-start mb-0">{{ currentLanguage.specialClrDescription }}</p>
+                  </td>
+                  <td>
+                    <p class="text-start mb-0">{{ currentLanguage.monoRuntimeDescription }}</p>
+                  </td>
+                  <td>
+                    <p class="text-start mb-0">{{ currentLanguage.ilrunDescription }}</p>
+                  </td>
+                </tr>
+
+                <tr class="align-middle border-bottom-0 bold-top-border">
+                  <td id="cil" rowspan="2">
+                    <p class="fs-4 lh-1 mb-2">{{ currentLanguage.cilTitle }}</p>
+                    <p class="lead lh-sm">{{ currentLanguage.cilExpansion }}</p>
+                    <p class="text-start mb-0">{{ currentLanguage.cilDescription }}</p>
+                  </td>
+                  <td colspan="4">
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.msilTitle }}</p>
+                    <p class="lead lh-sm">{{ currentLanguage.msilExpansion }}</p>
+                  </td>
+                  <td colspan="2">
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.ownIlTitle }}</p>
+                  </td>
+                </tr>
+
+                <tr class="border-top-0">
+                  <td colspan="4">
+                    <p class="text-start mb-0">{{ currentLanguage.msilDescription }}</p>
+                  </td>
+                  <td colspan="2">
+                    <p class="text-start mb-0">{{ currentLanguage.ownIlDescription }}</p>
+                  </td>
+                </tr>
+
+                <tr class="align-middle border-bottom-0 bold-top-border">
+                  <td id="stdlib" rowspan="2">
+                    <p class="fs-4 lh-1 mb-2">{{ currentLanguage.standardLibrariesTitle }}</p>
+                    <p class="text-start mb-0">{{ currentLanguage.standardLibrariesDescription }}</p>
+                    <ul class="text-start mb-0">
+                      <li>{{ currentLanguage.runtimeInfrastructureLibTitle }}</li>
+                      <li>{{ currentLanguage.bclTitle }}</li>
+                      <li>{{ currentLanguage.networkLibTitle }}</li>
+                      <li>{{ currentLanguage.reflectionLibTitle }}</li>
+                      <li>{{ currentLanguage.xmlLibTitle }}</li>
+                      <li>{{ currentLanguage.xNumericsLibTitle }}</li>
+                      <li>{{ currentLanguage.xArrayLibTitle }}</li>
+                      <li>{{ currentLanguage.varargLibTitle }}</li>
+                      <li>{{ currentLanguage.parallelLibTitle }}</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.coreFxTitle }}</p>
+                  </td>
+                  <td>
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.fclTitle }}</p>
+                    <p class="lead lh-sm mb-0">{{ currentLanguage.fclExpansion }}</p>
+                  </td>
+                  <td colspan="2">
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.specialFclTitle }}</p>
+                  </td>
+                  <td colspan="2">
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.ownClassLibrariesTitle }}</p>
+                  </td>
+                </tr>
+
+                <tr class="border-top-0">
+                  <td>
+                    <p class="text-start mb-0">{{ currentLanguage.coreFxDescription }}</p>
+                  </td>
+                  <td>
+                    <p class="text-start mb-0">{{ currentLanguage.fclDescription }}</p>
+                  </td>
+                  <td colspan="2">
+                    <p class="text-start mb-0">{{ currentLanguage.specialFclDescription }}</p>
+                  </td>
+                  <td colspan="2">
+                    <p class="text-start mb-0">{{ currentLanguage.ownClassLibrariesDescription }}</p>
+                  </td>
+                </tr>
+
+                <tr class="align-middle border-bottom-0 bold-top-border">
+                  <td id="cts" rowspan="2">
+                    <p class="fs-4 lh-1 mb-2">{{ currentLanguage.ctsTitle }}</p>
+                    <p class="lead lh-sm">{{ currentLanguage.ctsExpansion }}</p>
+                    <p class="text-start mb-0">{{ currentLanguage.ctsDescription }}</p>
+                  </td>
+                  <td colspan="6">
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.noExplicitImplementationsTitle }}</p>
+                  </td>
+                </tr>
+
+                <tr class="border-top-0">
+                  <td rowspan="2" colspan="6">
+                    <p class="text-start mb-0">{{ currentLanguage.noExplicitImplementationsDescription }}</p>
+                  </td>
+                </tr>
+
+                <tr class="align-middle bold-top-border">
+                  <td id="cls">
+                    <p class="fs-4 lh-1 mb-2">{{ currentLanguage.clsTitle }}</p>
+                    <p class="lead lh-sm">{{ currentLanguage.clsExpansion }}</p>
+                    <p class="text-start mb-0">{{ currentLanguage.clsDescription }}</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <nav class="navbar navbar-dark bg-secondary">
+          <div class="container">
+            <ul class="navbar-nav w-100 flex-row flex-wrap justify-content-center">
+              <span class="navbar-text user-select-none me-3">{{ currentLanguage.credits }}</span>
+
+              <li class="nav-item me-3">
+                <a href="https://getbootstrap.com" class="nav-link fw-bold">Bootstrap</a>
+              </li>
+              <li class="nav-item me-3">
+                <a href="https://icons.getbootstrap.com" class="nav-link fw-bold">Bootstrap Icons</a>
+              </li>
+              <li class="nav-item me-3">
+                <a href="https://vuejs.org" class="nav-link fw-bold">Vue</a>
+              </li>
+              <li class="nav-item">
+                <a href="https://flagicons.lipis.dev" class="nav-link fw-bold">Flag Icons</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="js/languages/ru.js"></script>
+    <script src="js/languages/en_us.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
