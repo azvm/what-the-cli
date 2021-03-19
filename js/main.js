@@ -8,9 +8,9 @@ const app = new Vue({
   data: {
     navBarActive: false,
     languageBrowserActive: false,
-    darkModeActive: DEFAULT_DARK_MODE,
+    darkModeActive: null,
     languages: LANGUAGES,
-    currentLanguageCode: DEFAULT_LANGUAGE_CODE,
+    currentLanguageCode: null,
   },
   computed: {
     currentLanguage() {
@@ -24,15 +24,23 @@ const app = new Vue({
       document.documentElement.lang = this.currentLanguageCode
       document.title = this.currentLanguage.title
     },
+    resetLanguage() {
+      this.setLanguage(DEFAULT_LANGUAGE_CODE)
+    },
     saveLanguage() {
-      window.localStorage.setItem(LANGUAGE_CODE_STORAGE, this.currentLanguageCode)
+      localStorage.setItem(LANGUAGE_CODE_STORAGE, this.currentLanguageCode)
     },
     loadLanguage() {
-      if (!window.localStorage.hasOwnProperty(LANGUAGE_CODE_STORAGE)) {
-        this.setLanguage(DEFAULT_LANGUAGE_CODE)
+      if (!localStorage.hasOwnProperty(LANGUAGE_CODE_STORAGE)) {
+        this.resetLanguage()
       }
       else {
-        this.setLanguage(window.localStorage.getItem(LANGUAGE_CODE_STORAGE))
+        try {
+          this.setLanguage(localStorage.getItem(LANGUAGE_CODE_STORAGE))
+        } catch {
+          this.resetLanguage()
+          console.error("Could not load language, reset to default")
+        }
       }
     },
 
@@ -40,15 +48,23 @@ const app = new Vue({
       this.darkModeActive = darkModeActive
       this.saveDarkMode()
     },
+    resetDarkMode() {
+      this.setDarkMode(DEFAULT_DARK_MODE)
+    },
     saveDarkMode() {
-      window.localStorage.setItem(DARK_MODE_STORAGE, this.darkModeActive)
+      localStorage.setItem(DARK_MODE_STORAGE, this.darkModeActive)
     },
     loadDarkMode() {
-      if (!window.localStorage.hasOwnProperty(DARK_MODE_STORAGE)) {
-        this.setDarkMode(DEFAULT_DARK_MODE)
+      if (!localStorage.hasOwnProperty(DARK_MODE_STORAGE)) {
+        this.resetDarkMode()
       }
       else {
-        this.setDarkMode(JSON.parse(window.localStorage.getItem(DARK_MODE_STORAGE)))
+        try {
+          this.setDarkMode(JSON.parse(localStorage.getItem(DARK_MODE_STORAGE)))
+        } catch {
+          this.resetDarkMode()
+          console.error("Could not load dark mode, reset to default")
+        }
       }
     }
   },
