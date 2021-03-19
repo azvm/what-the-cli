@@ -1,4 +1,4 @@
-const DEFAULT_LANGUAGE_CODE = "en_us"
+const DEFAULT_LANGUAGE_CODE = "en-us"
 const LANGUAGE_CODE_STORAGE = "language"
 const DEFAULT_DARK_MODE = false
 const DARK_MODE_STORAGE = "darkMode"

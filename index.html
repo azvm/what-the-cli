@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en">
+<html lang="en-us">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +17,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-primary">
           <div class="container">
             <a class="navbar-brand" href="index.html">
-              <span class="bi-layout-wtf"></span>
+              <span class="lead bi-layout-wtf"></span>
               <span>{{ currentLanguage.title }}</span>
             </a>
 
@@ -36,7 +36,7 @@
 
               <div class="dropdown" @mouseenter="languageBrowserActive = true" @mouseleave="languageBrowserActive = false" @click="languageBrowserActive = !languageBrowserActive" @blur="languageBrowserActive = false">
                 <button :class="['btn', 'btn-text', 'text-white', 'dropdown-toggle', { show: languageBrowserActive }]" :title="currentLanguage.languageBrowserHelp">
-                  <span class="bi-globe"></span>
+                  <span class="lead bi-globe"></span>
                   <span>{{ currentLanguage.languageBrowserTitle }}</span>
                 </button>
 
@@ -51,7 +51,7 @@
               </div>
 
               <button @click="setDarkMode(!darkModeActive)" class="btn btn-text text-white" :title="currentLanguage.darkModeTogglerHelp">
-                <span :class="darkModeActive ? 'bi-moon-fill' : 'bi-moon'"></span>
+                <span :class="['lead', darkModeActive ? 'bi-sun' : 'bi-moon']"></span>
               </button>
             </div>
           </div>
@@ -247,21 +247,30 @@
                     <p class="text-start mb-0">{{ currentLanguage.ctsDescription }}</p>
                   </td>
                   <td colspan="6">
-                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.noExplicitImplementationsTitle }}</p>
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.ctsImplementationTitle }}</p>
                   </td>
                 </tr>
 
                 <tr class="border-top-0">
-                  <td rowspan="2" colspan="6">
-                    <p class="text-start mb-0">{{ currentLanguage.noExplicitImplementationsDescription }}</p>
+                  <td colspan="6">
+                    <p class="text-start mb-0">{{ currentLanguage.ctsImplementationDescription }}</p>
                   </td>
                 </tr>
 
                 <tr class="align-middle bold-top-border">
-                  <td id="cls">
+                  <td id="cls" rowspan="2">
                     <p class="fs-4 lh-1 mb-2">{{ currentLanguage.clsTitle }}</p>
                     <p class="lead lh-sm">{{ currentLanguage.clsExpansion }}</p>
                     <p class="text-start mb-0">{{ currentLanguage.clsDescription }}</p>
+                  </td>
+                  <td colspan="6">
+                    <p class="fs-4 lh-1 mb-0">{{ currentLanguage.clsImplementationTitle }}</p>
+                  </td>
+                </tr>
+
+                <tr class="border-top-0">
+                  <td colspan="6">
+                    <p class="text-start mb-0">{{ currentLanguage.clsImplementationDescription }}</p>
                   </td>
                 </tr>
               </tbody>
@@ -295,8 +304,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-    <script src="js/languages/ru.js"></script>
-    <script src="js/languages/en_us.js"></script>
+    <script src="js/languages/en-us.js"></script>
+    <script src="js/languages/ru-ru.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
