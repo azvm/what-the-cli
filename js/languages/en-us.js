@@ -108,8 +108,8 @@ LANGUAGES["en-us"] = {
   clsDescription: "An agreement between language designers and framework (class library) designers. It specifies a subset of the CTS and a set of usage conventions",
 
   ctsImplementationTitle: "Any VES implementation",
-  ctsImplementationDescription: "CTS describes what types VES must support and how exactly it must handle them",
+  ctsImplementationDescription: "CTS describes what types VES must support and how exactly it must handle them. It means that any VES implementation implements CTS as well",
 
   clsImplementationTitle: "Any CLI-compatible programming language",
-  clsImplementationDescription: "Programming language must be CLS-compliant to be compatible with the CLI",
+  clsImplementationDescription: "Programming language must be CLS-compliant to be compatible with the CLI. It means that any CLI-compatible programming language implements CLS",
 }
