@@ -14,6 +14,8 @@ LANGUAGES["en-us"] = {
   about: "Brief summary based on",
   languageBrowserTitle: "Language",
   languageBrowserHelp: "Language selection",
+  increaseFontSizeHelp: "Increase font size",
+  decreaseFontSizeHelp: "Decrease font size",
   darkModeTogglerHelp: "Light/dark mode",
   credits: "Made with these awesome tools:",
 

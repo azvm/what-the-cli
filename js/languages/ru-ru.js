@@ -14,6 +14,8 @@ LANGUAGES["ru-ru"] = {
   about: "Краткая сводка на основе",
   languageBrowserTitle: "Язык",
   languageBrowserHelp: "Выбор языка",
+  increaseFontSizeHelp: "Увеличить размер шрифта",
+  decreaseFontSizeHelp: "Уменьшить размер шрифта",
   darkModeTogglerHelp: "Светлая/тёмная тема",
   credits: "Сделано с помощью этих замечательных инструментов:",
 
