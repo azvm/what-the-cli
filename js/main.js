@@ -3,12 +3,11 @@ const LANGUAGE_CODE_STORAGE = "language"
 
 const DEFAULT_FONT_SIZE = 16
 const FONT_SIZE_STORAGE = "fontSize"
+const MIN_FONT_SIZE = 10
+const MAX_FONT_SIZE = 20
 
 const DEFAULT_DARK_MODE = false
 const DARK_MODE_STORAGE = "darkMode"
-
-const MIN_FONT_SIZE = 10
-const MAX_FONT_SIZE = 20
 
 const app = new Vue({
   el: "#app",
@@ -25,20 +24,20 @@ const app = new Vue({
   },
 
   computed: {
-    currentLanguage() {
+    currentLanguage: function() {
       return this.languages[this.currentLanguageCode]
     },
 
-    canIncreaseFontSize() {
+    canIncreaseFontSize: function() {
       return this.currentFontSize < MAX_FONT_SIZE
     },
-    canDecreaseFontSize() {
+    canDecreaseFontSize: function() {
       return this.currentFontSize > MIN_FONT_SIZE
     },
   },
 
   methods: {
-    setLanguage(languageCode) {
+    setLanguage: function(languageCode) {
       this.currentLanguageCode = languageCode
 
       this.saveLanguage()
@@ -46,27 +45,27 @@ const app = new Vue({
       document.documentElement.lang = this.currentLanguageCode
       document.title = this.currentLanguage.title
     },
-    resetLanguage() {
+    resetLanguage: function() {
       this.setLanguage(DEFAULT_LANGUAGE_CODE)
     },
-    saveLanguage() {
+    saveLanguage: function() {
       localStorage.setItem(LANGUAGE_CODE_STORAGE, this.currentLanguageCode)
     },
-    loadLanguage() {
+    loadLanguage: function() {
       if (!localStorage.hasOwnProperty(LANGUAGE_CODE_STORAGE)) {
         this.resetLanguage()
       }
       else {
         try {
           this.setLanguage(localStorage.getItem(LANGUAGE_CODE_STORAGE))
-        } catch {
+        } catch (error) {
           this.resetLanguage()
           console.error("Could not load language, reset to default")
         }
       }
     },
 
-    setFontSize(fontSize) {
+    setFontSize: function(fontSize) {
       if (fontSize < MIN_FONT_SIZE || fontSize > MAX_FONT_SIZE) {
         return
       }
@@ -75,47 +74,47 @@ const app = new Vue({
 
       this.saveFontSize()
 
-      document.documentElement.style.fontSize = `${this.currentFontSize}px`
+      document.documentElement.style.fontSize = this.currentFontSize + "px"
     },
-    resetFontSize() {
+    resetFontSize: function() {
       this.setFontSize(DEFAULT_FONT_SIZE)
     },
-    saveFontSize() {
+    saveFontSize: function() {
       localStorage.setItem(FONT_SIZE_STORAGE, this.currentFontSize)
     },
-    loadFontSize() {
+    loadFontSize: function() {
       if (!localStorage.hasOwnProperty(FONT_SIZE_STORAGE)) {
         this.resetFontSize()
       }
       else {
         try {
           this.setFontSize(JSON.parse(localStorage.getItem(FONT_SIZE_STORAGE)))
-        } catch {
+        } catch (error) {
           this.resetFontSize()
           console.error("Could not load font size, reset to default")
         }
       }
     },
 
-    setDarkMode(darkModeActive) {
+    setDarkMode: function(darkModeActive) {
       this.darkModeActive = darkModeActive
 
       this.saveDarkMode()
     },
-    resetDarkMode() {
+    resetDarkMode: function() {
       this.setDarkMode(DEFAULT_DARK_MODE)
     },
-    saveDarkMode() {
+    saveDarkMode: function() {
       localStorage.setItem(DARK_MODE_STORAGE, this.darkModeActive)
     },
-    loadDarkMode() {
+    loadDarkMode: function() {
       if (!localStorage.hasOwnProperty(DARK_MODE_STORAGE)) {
         this.resetDarkMode()
       }
       else {
         try {
           this.setDarkMode(JSON.parse(localStorage.getItem(DARK_MODE_STORAGE)))
-        } catch {
+        } catch (error) {
           this.resetDarkMode()
           console.error("Could not load dark mode, reset to default")
         }
@@ -123,7 +122,7 @@ const app = new Vue({
     },
   },
 
-  created() {
+  created: function() {
     this.loadLanguage()
     this.loadFontSize()
     this.loadDarkMode()
