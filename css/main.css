@@ -10,3 +10,7 @@
 .bold-top-border {
   border-top-width: 5px !important;
 }
+
+.table-dark > tbody > tr > td.border-bottom {
+  border-color: #373b3e !important;
+}
