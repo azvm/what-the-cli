@@ -7,7 +7,7 @@ LANGUAGES["ru-ru"] = {
   meta: {
     code: "ru-ru",
     name: "Русский",
-    iconURL: "https://lipis.github.io/flag-icon-css/flags/4x3/ru.svg"
+    iconURL: "https://flagicons.lipis.dev/flags/4x3/ru.svg"
   },
 
   title: "Что за CLI?",

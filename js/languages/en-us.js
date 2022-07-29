@@ -7,7 +7,7 @@ LANGUAGES["en-us"] = {
   meta: {
     code: "en-us",
     name: "English (United States)",
-    iconURL: "https://lipis.github.io/flag-icon-css/flags/4x3/us.svg"
+    iconURL: "https://flagicons.lipis.dev/flags/4x3/us.svg"
   },
 
   title: "What the CLI?",
